@@ -44,3 +44,5 @@ let params: string[] = process.argv; // argv is an array of strings
 
 //console.log('The contents of the `process.argv` array:');
 //console.table(params);
+
+function etsiToimipaikka() {}
