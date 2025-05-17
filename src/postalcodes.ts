@@ -1,6 +1,7 @@
 // Both the `fs` and `path` modules are built-in Node.js modules.
 import { readFileSync } from "fs";
 import path from "path";
+import { isNumber } from "util";
 
 /**
  * `path.join` and `__dirname` are used to generate the path to the CSV file "postalcodes.csv"
@@ -40,9 +41,28 @@ let lines: string[] = fileContents.trim().split("\n");
  * Try to give some extra arguments when running the script, and you should see them in the
  * table output.
  */
-let params: string[] = process.argv; // argv is an array of strings
+//let params: string[] = process.argv; // argv is an array of strings
 
-//console.log('The contents of the `process.argv` array:');
+//console.log("The contents of the `process.argv` array:");
 //console.table(params);
 
-function etsiToimipaikka() {}
+function findName() {
+  let input: string[] = process.argv.slice(2);
+  let inputtedCode: string = input[0];
+  let run: boolean = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let splitItem: string[] = lines[i].split(",");
+    let zipCode: string = splitItem[0];
+    let name: string = splitItem[1];
+    run = true;
+    if (zipCode === inputtedCode) {
+      console.log(name);
+      break;
+    }
+  }
+  console.log("Zipcode is invalid or not part of the list");
+}
+findName();
+
+function listCodes() {}
