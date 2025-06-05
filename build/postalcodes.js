@@ -46,17 +46,20 @@ let lines = fileContents.trim().split("\n");
 function findName() {
     let input = process.argv.slice(2);
     let inputtedCode = input[0];
-    let run = false;
+    let found = false;
     for (let i = 0; i < lines.length; i++) {
         let splitItem = lines[i].split(",");
         let zipCode = splitItem[0];
         let name = splitItem[1];
-        run = true;
         if (zipCode === inputtedCode) {
             console.log(name);
+            found = true;
             break;
         }
     }
-    console.log("Zipcode is invalid or not part of the list");
+    if (!found) {
+        console.log("Zipcode is invalid or not part of the list");
+    }
 }
 findName();
+function listCodes() { }
