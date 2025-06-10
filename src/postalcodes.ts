@@ -46,6 +46,11 @@ let lines: string[] = fileContents.trim().split("\n");
 //console.log("The contents of the `process.argv` array:");
 //console.table(params);
 
+interface PostOffice {
+  name: string;
+  code: string;
+}
+
 function findName() {
   let input: string[] = process.argv.slice(2);
   let inputtedCode: string = input[0];
@@ -65,6 +70,34 @@ function findName() {
     console.log("Zipcode is invalid or not part of the list");
   }
 }
-findName();
+//findName();
 
-function listCodes() {}
+function listCodes() {
+  let input: string[] = process.argv.slice(2);
+  let inputtedCode: string = input[0].toUpperCase();
+  let foundCodes: string[] = [];
+  let found: boolean = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let splitItem: string[] = lines[i].split(",");
+
+    let nameAndCode: PostOffice = {
+      name: splitItem[1].toUpperCase(),
+      code: splitItem[0],
+    };
+
+    if (inputtedCode === nameAndCode.name) {
+      foundCodes.push(nameAndCode.code);
+      foundCodes.sort();
+      found = true;
+    }
+  }
+  if (!found) {
+    console.log("Name is invalid or not part of the list");
+  } else {
+    let output = foundCodes.join(", ");
+    console.log(output);
+  }
+}
+
+listCodes();
